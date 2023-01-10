@@ -1,7 +1,9 @@
 [workspace]
 members = [
   "tcpserver",
-  "tcpclient"
+  "tcpclient",
+  "http",
+  "httpserver"
 ] 
 
 [package]
