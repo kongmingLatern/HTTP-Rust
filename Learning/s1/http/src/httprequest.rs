@@ -109,6 +109,7 @@ impl From<&str> for Version {
 
 #[cfg(test)]
 mod tests {
+
     use super::*;
 
     #[test]
@@ -121,5 +122,16 @@ mod tests {
     fn test_version_into() {
         let v: Version = "HTTP/1.1".into();
         assert_eq!(v, Version::V1_1);
+    }
+
+    #[test]
+    fn test_http_request() {
+        let s: String = String::from("GET /greeting HTTP/1.1\r\nHost: localhost:3000\r\nUser-Agent: curl/7.71.1\r\nAccept: */*\r\n\r\n");
+        let mut headers_expected: HashMap<String, String> = HashMap::new();
+        headers_expected.insert("HOST".into(), " localhost".into());
+        headers_expected.insert("Accept".into(), " */*".into());
+        headers_expected.insert("User-Agent".into(), " curl/7.71.1".into());
+        let req: HttpRequest = s.into();
+        assert_eq!(Method::Get, req.method);
     }
 }
